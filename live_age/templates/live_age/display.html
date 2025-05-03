@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Age</title>
+</head>
+<body>
+    
+    <h2>Live Age Tracker</h2>
+    <div id="result">Loading...</div>
+    
+    <script>
+    function updateAge() {
+        fetch('/live-age/api/')
+            .then(response => response.json()) // Parse the response as JSON
+            .then(data => {
+                // Now 'data' is a JavaScript object containing the parsed JSON data
+                if (data.error) {
+                    document.getElementById("result").innerText = data.error;
+                } else {
+                    document.getElementById("result").innerText = `${data.name}'s Age: ${data.age}`;
+                }
+            });
+    }
+    
+    setInterval(updateAge, 1000);  // Call every second
+    updateAge();  // Initial call
+    </script>
+</body>
+</html>
+
